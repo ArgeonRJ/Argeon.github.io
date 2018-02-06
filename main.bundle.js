@@ -188,7 +188,7 @@ var ButtonsComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/Components/grid/grid.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-card class=\"angrytext\">\n  <nb-card-header>\n    {{titulo}}\n  </nb-card-header>\n  <nb-card-body>\n    <ng2-smart-table [settings]=\"settings\" [source]=\"menuItems\">\n    </ng2-smart-table>\n  </nb-card-body>\n</nb-card>"
+module.exports = "<nb-card class=\"angrytext\">\n  <nb-card-header>\n    {{titulo}}\n  </nb-card-header>\n  <nb-card-body>\n    <ng2-smart-table [settings]=\"settings\" noDataMessage=\"noDataMessage\" [source]=\"menuItems\">\n    </ng2-smart-table>\n  </nb-card-body>\n</nb-card>"
 
 /***/ }),
 
@@ -231,8 +231,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var GridComponent = /** @class */ (function () {
-    //settings = {actions: {add: false,edit: false,delete: false }, columns: {}};
-    // settings = {actions: {add: false,edit: false,delete: false }, columns: {}};
     function GridComponent(db, cacheSrv) {
         var _this = this;
         this.db = db;
@@ -243,7 +241,7 @@ var GridComponent = /** @class */ (function () {
                 nome: {
                     title: 'Nome:'
                 },
-            }
+            },
         };
         this.execute = false;
         this.titulo = 'Escolha uma Grid';
@@ -383,7 +381,7 @@ var GridComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/Components/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-container\">\n  <div class=\"logo-containter\">\n    <div class=\"logo\" (click)=\"teste2()\">Argeon - WebApp</div>\n  </div>\n  <nb-search type=\"rotate-layout\" tag=\"rotate-layout\"></nb-search>\n\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"Logado\">\n    <nb-action>\n\n    </nb-action>\n    <nb-action>\n      <nb-user [name]=\"UsernameDisplay\" [picture]=\"AvatarDisplay\"></nb-user>\n    </nb-action>\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin()\" *ngIf=\"!Show\">\n        <i class=\"fa fa-2x fa-chevron-down {{Rotate}} \"></i>Sair</button>\n    </nb-action>\n  </nb-actions>\n\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"!Logado\">\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin()\" *ngIf=\"!Show\">\n        <i class=\"fa fa-2x fa-chevron-up {{Rotate}} \"></i>Login</button>\n    </nb-action>\n  </nb-actions>\n\n</div>"
+module.exports = "<div class=\"header-container\">\n  <div class=\"logo-containter\">\n    <div class=\"logo\" (click)=\"goToHome()\">Argeon - WebApp</div>\n  </div>\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"Logado\">\n    <nb-action>\n\n    </nb-action>\n    <nb-action>\n      <nb-user [name]=\"UsernameDisplay\" [picture]=\"AvatarDisplay\"></nb-user>\n    </nb-action>\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin()\" *ngIf=\"!Show\">\n        <i class=\"fa fa-2x fa-chevron-down {{Rotate}} \"></i>Sair</button>\n    </nb-action>\n  </nb-actions>\n\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"!Logado\">\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin()\" *ngIf=\"!Show\">\n        <i class=\"fa fa-2x fa-chevron-up {{Rotate}} \"></i>Login</button>\n    </nb-action>\n  </nb-actions>\n\n</div>"
 
 /***/ }),
 
@@ -413,7 +411,8 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Service_LoginSrv_login_srv_service__ = __webpack_require__("../../../../../src/app/Service/LoginSrv/login-srv.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Service_CacheSrv_cache_service_service__ = __webpack_require__("../../../../../src/app/Service/CacheSrv/cache-service.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -427,27 +426,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(router, afAuth, LoginSrv) {
+    function HeaderComponent(router, afAuth, LoginSrv, cacheSrv) {
         this.router = router;
         this.afAuth = afAuth;
         this.LoginSrv = LoginSrv;
+        this.cacheSrv = cacheSrv;
         this.Logado = false;
         //this.UsernameDisplay = 'Iago Favilla'
         this.userUID = sessionStorage.getItem('SetTokenuser');
         this.AvatarDisplay = sessionStorage.getItem('SetImageuser');
         this.UsernameDisplay = 'Bem Vindo(a)' + ' ' + sessionStorage.getItem('SetNameuser');
         this.Rotate = null;
-        /*    this.afAuth.authState.subscribe(
-             (auth) => {
-               if (auth != null) {
-                 this.user = afAuth.authState;
-                 this.Logado = true
-               }else{
-                 this.LoginSrv.Logout()
-               }
-             }
-           ) */
         if (this.userUID == null) {
             this.Logado = false;
         }
@@ -473,7 +464,7 @@ var HeaderComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/Components/header/header.component.html"),
             styles: [__webpack_require__("../../../../../src/app/Components/header/header.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_0__Service_LoginSrv_login_srv_service__["a" /* LoginSrvService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_0__Service_LoginSrv_login_srv_service__["a" /* LoginSrvService */], __WEBPACK_IMPORTED_MODULE_3__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */]])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -855,6 +846,67 @@ var CriarFichasComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/Pages/editar-fichas/editar-fichas.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/Pages/editar-fichas/editar-fichas.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  editar-fichas works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/Pages/editar-fichas/editar-fichas.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditarFichasComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var EditarFichasComponent = /** @class */ (function () {
+    function EditarFichasComponent() {
+    }
+    EditarFichasComponent.prototype.ngOnInit = function () {
+    };
+    EditarFichasComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-editar-fichas',
+            template: __webpack_require__("../../../../../src/app/Pages/editar-fichas/editar-fichas.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/Pages/editar-fichas/editar-fichas.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], EditarFichasComponent);
+    return EditarFichasComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/Pages/ficha/ficha.component.html":
 /***/ (function(module, exports) {
 
@@ -870,7 +922,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".wrapper_Magico {\n  font-size: 1rem;\n  line-height: 1.25;\n  background: #3d3780;\n  color: #d1d1ff;\n  border-radius: .5rem;\n  border-color: #3d3780;\n  -webkit-box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n          box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n  font-weight: 400; }\n\n.colunas {\n  -webkit-box-shadow: 6px 0px 25px 0px #000000 !important;\n          box-shadow: 6px 0px 25px 0px #000000 !important; }\n\n.colunas2 {\n  -webkit-box-shadow: -6px 0px 25px 0px #000000 !important;\n          box-shadow: -6px 0px 25px 0px #000000 !important; }\n\n.teste {\n  overflow-y: scroll;\n  height: 40vh; }\n\n.row {\n  text-align: center; }\n", ""]);
+exports.push([module.i, ".wrapper_Magico {\n  font-size: 1rem;\n  line-height: 1.25;\n  background: #3d3780;\n  color: #d1d1ff;\n  border-radius: .5rem;\n  border-color: #3d3780;\n  -webkit-box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n          box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n  font-weight: 400; }\n\n.colunas {\n  -webkit-box-shadow: 6px 0px 25px 0px #000000 !important;\n          box-shadow: 6px 0px 25px 0px #000000 !important; }\n\n.colunas2 {\n  -webkit-box-shadow: -6px 0px 25px 0px #000000 !important;\n          box-shadow: -6px 0px 25px 0px #000000 !important; }\n\n.teste {\n  overflow-y: scroll;\n  height: 40vh; }\n\n.row {\n  text-align: center; }\n\n.angrytext {\n  font-size: 70px;\n  font-weight: bold;\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 3s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n\n@-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n\n@keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n", ""]);
 
 // exports
 
@@ -1050,7 +1102,7 @@ var FichaComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/Pages/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <br>\n  <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\n    <nb-sidebar-header>\n    </nb-sidebar-header>\n    <app-menu></app-menu>\n  </nb-sidebar>\n\n  <nb-layout-column>\n    <div class=\"angrytext\">\n      <app-buttons></app-buttons>\n    </div>\n    <app-grid></app-grid>\n\n\n  </nb-layout-column>\n</nb-layout>"
+module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <br>\n  <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\n    <nb-sidebar-header>\n    </nb-sidebar-header>\n    <app-menu></app-menu>\n  </nb-sidebar>\n\n  <nb-layout-column>\n    <div class=\"angrytext\">\n        <nb-card class=\"\">\n            <nb-card-header style=\"text-align: center\">\n              <h1>BEM VINDOS À ARGEON</h1>\n            </nb-card-header>\n            <nb-card-body>\n              <div style=\" text-align: start; \">\n                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus nulla, vulputate a condimentum et, aliquet sit amet lectus. Maecenas gravida ullamcorper quam eu pretium. Quisque urna ex, dapibus sed imperdiet eu, accumsan non urna. Nullam felis nibh, tincidunt sit amet nibh vitae, rutrum fringilla lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam ultrices justo sed nibh viverra, nec vestibulum lorem sagittis. Morbi dictum laoreet metus. Mauris pellentesque egestas pharetra. Integer mi enim, pulvinar et tincidunt ut, maximus porta enim. Vivamus posuere elementum augue, at ultrices magna hendrerit et. Duis facilisis, felis ac interdum pulvinar, tortor elit maximus quam, et elementum lectus ipsum vel ante. Proin sit amet orci faucibus, tempor ante ut, eleifend augue.</p>\n              </div>\n            </nb-card-body>\n            <nb-card-footer></nb-card-footer>\n          </nb-card>\n      <app-buttons></app-buttons>\n    </div>\n    <app-grid></app-grid>\n    <div class=\"angrytext\">\n      <div class=\"WrapItUp Mostrar\">\n        <agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"elevation\">\n          <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\n        </agm-map>\n        <div>\n          <nb-card class=\"Card99\" (click)=\"ativar()\">\n            <nb-card-header>Como nos encontrar</nb-card-header>\n            <nb-card-body>\n              <div style=\" text-align: start;\">\n                <p>Estamos nos encontrando todo o 1º e 3º domingo aqui, na Quinta da Boa Vista, no Estado do Rio de janeiro</p>\n              </div>\n            </nb-card-body>\n            <nb-card-footer></nb-card-footer>\n          </nb-card>\n          <br>\n          <nb-card class=\"Card99\">\n            <nb-card-header>Admnistradores(Arautos)</nb-card-header>\n            <nb-card-body>\n              <div style=\" text-align: start; \">\n                <ul class=\"mb-5\">\n                  <li>\n                    <h5>Carlos Oliveira</h5>\n                    <p>Arauto chefe de Argeon</p>\n                  </li>\n                </ul>\n              </div>\n            </nb-card-body>\n            <nb-card-footer></nb-card-footer>\n          </nb-card>\n        </div>\n      </div>\n    </div>\n  </nb-layout-column>\n</nb-layout>"
 
 /***/ }),
 
@@ -1062,7 +1114,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "nb-sidebar.settings-sidebar {\n  -webkit-transition: width 0.3s ease;\n  transition: width 0.3s ease;\n  width: 7.5rem;\n  overflow: hidden; }\n  nb-sidebar.settings-sidebar.collapsed {\n    width: 0; }\n  nb-sidebar.settings-sidebar.collapsed /deep/ .main-container {\n      width: 0; }\n  nb-sidebar.settings-sidebar.collapsed /deep/ .main-container .scrollable {\n        width: 7.5rem;\n        padding: 1.25rem; }\n  nb-sidebar.menu-sidebar {\n  margin-top: nb-theme(sidebar-header-gap);\n  background: transparent; }\n  nb-sidebar.menu-sidebar /deep/ .main-container {\n    height: calc(nb-theme(sidebar-height) - nb-theme(header-height) - nb-theme(sidebar-header-gap)) !important;\n    border-top-right-radius: nb-theme(radius); }\n  nb-sidebar.menu-sidebar /deep/ nb-sidebar-header {\n    padding-bottom: 0.5rem;\n    text-align: center; }\n  nb-sidebar.menu-sidebar .main-btn {\n    padding: 0.75rem 2.5rem;\n    margin-top: -2rem;\n    font-weight: bold;\n    -webkit-transition: padding 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.48);\n    transition: padding 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.48); }\n  nb-sidebar.menu-sidebar .main-btn i {\n      font-size: 2rem;\n      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); }\n  nb-sidebar.menu-sidebar .main-btn span {\n      padding-left: 0.25rem; }\n  nb-sidebar.menu-sidebar .main-btn i,\n    nb-sidebar.menu-sidebar .main-btn span {\n      vertical-align: middle; }\n  nb-sidebar.menu-sidebar.compacted /deep/ nb-sidebar-header {\n    padding-left: 0;\n    padding-right: 0; }\n  nb-sidebar.menu-sidebar.compacted .main-btn {\n    width: 46px;\n    height: 44px;\n    padding: 0.375rem;\n    border-radius: 5px;\n    -webkit-transition: none;\n    transition: none; }\n  nb-sidebar.menu-sidebar.compacted .main-btn span {\n      display: none; }\n  .angrytext {\n  font-size: 70px;\n  font-weight: bold;\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 3s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n  @-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n  @keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n", ""]);
+exports.push([module.i, "nb-sidebar.settings-sidebar {\n  -webkit-transition: width .3s ease;\n  transition: width .3s ease;\n  width: 7.5rem;\n  overflow: hidden; }\n  nb-sidebar.settings-sidebar.collapsed {\n    width: 0; }\n  nb-sidebar.settings-sidebar.collapsed /deep/ .main-container {\n      width: 0; }\n  nb-sidebar.settings-sidebar.collapsed /deep/ .main-container .scrollable {\n        width: 7.5rem;\n        padding: 1.25rem; }\n  nb-sidebar.menu-sidebar {\n  margin-top: nb-theme(sidebar-header-gap);\n  background: transparent; }\n  nb-sidebar.menu-sidebar /deep/ .main-container {\n    height: calc(nb-theme(sidebar-height) - nb-theme(header-height) - nb-theme(sidebar-header-gap)) !important;\n    border-top-right-radius: nb-theme(radius); }\n  nb-sidebar.menu-sidebar /deep/ nb-sidebar-header {\n    padding-bottom: .5rem;\n    text-align: center; }\n  nb-sidebar.menu-sidebar .main-btn {\n    padding: .75rem 2.5rem;\n    margin-top: -2rem;\n    font-weight: bold;\n    -webkit-transition: padding 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.48);\n    transition: padding 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.48); }\n  nb-sidebar.menu-sidebar .main-btn i {\n      font-size: 2rem;\n      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); }\n  nb-sidebar.menu-sidebar .main-btn span {\n      padding-left: .25rem; }\n  nb-sidebar.menu-sidebar .main-btn i,\n    nb-sidebar.menu-sidebar .main-btn span {\n      vertical-align: middle; }\n  nb-sidebar.menu-sidebar.compacted /deep/ nb-sidebar-header {\n    padding-left: 0;\n    padding-right: 0; }\n  nb-sidebar.menu-sidebar.compacted .main-btn {\n    width: 46px;\n    height: 44px;\n    padding: .375rem;\n    border-radius: 5px;\n    -webkit-transition: none;\n    transition: none; }\n  nb-sidebar.menu-sidebar.compacted .main-btn span {\n      display: none; }\n  agm-map {\n  height: 80vh;\n  width: 80vh; }\n  .WrapItUp {\n  display: -webkit-box !important;\n  display: -ms-flexbox !important;\n  display: flex !important; }\n  .Card99 {\n  margin-left: 10px; }\n  .Card99 nb-card-header {\n    text-align: center; }\n  .angrytext {\n  font-size: 70px;\n  font-weight: bold;\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 3s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n  @-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n  @keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n", ""]);
 
 // exports
 
@@ -1081,7 +1133,6 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_database__ = __webpack_require__("../../../../angularfire2/database/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nebular_theme__ = __webpack_require__("../../../../@nebular/theme/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Service_CacheSrv_cache_service_service__ = __webpack_require__("../../../../../src/app/Service/CacheSrv/cache-service.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1095,17 +1146,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(db, router, themeService, cacheSrv) {
+    function HomeComponent(db, router, themeService) {
         var _this = this;
         this.db = db;
         this.router = router;
         this.themeService = themeService;
-        this.cacheSrv = cacheSrv;
         this.themeName = 'cosmic';
         this.layout = {};
-        // this.cacheSrv.TituloObj.Grid = 'Reinos'
+        this.lat = -22.90717096;
+        this.lng = -43.22418451;
+        this.elevation = 15;
         this.themeSubscription = this.themeService.getJsTheme().subscribe(function (theme) {
             _this.themeName = theme.name;
             _this.init(theme.variables);
@@ -1159,7 +1210,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/Pages/home/home.component.html"),
             styles: [__webpack_require__("../../../../../src/app/Pages/home/home.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_3__nebular_theme__["l" /* NbThemeService */], __WEBPACK_IMPORTED_MODULE_4__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_3__nebular_theme__["l" /* NbThemeService */]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -1171,7 +1222,7 @@ var HomeComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/Pages/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <nb-layout-column>\n    <nb-card class=\"centro\">\n      <nb-card-header>\n        <h1>Login</h1>\n      </nb-card-header>\n      <nb-card-body>\n        <button class=\"btn btn-primary\" (click)=\"login()\">\n          <i class=\"socicon-google\"></i> Login With Google\n        </button>\n        <i class=\"fa fa-chevron-up\"></i>\n        <button class=\"btn btn-default\" (click)=\"logout()\">Logout</button>\n        <button class=\"btn btn-default\">{{Username_NameDisplay }}</button>\n      </nb-card-body>\n    </nb-card>\n  </nb-layout-column>"
+module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <nb-layout-column>\n    <nb-card class=\"centro\">\n      <nb-card-header>\n        <h1>Login</h1>\n      </nb-card-header>\n      <nb-card-body>\n        <button class=\"btn btn-primary Google\" (click)=\"login()\">\n          <i class=\"socicon-google\"></i> Login With Google\n        </button>\n        <i class=\"fa fa-chevron-up\"></i>\n        <button class=\"btn btn-default\" (click)=\"logout()\">Logout</button>\n        <button class=\"btn btn-default\">{{Username_NameDisplay }}</button>\n      </nb-card-body>\n    </nb-card>\n  </nb-layout-column>"
 
 /***/ }),
 
@@ -1183,7 +1234,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".centro {\n  width: 50%;\n  margin: auto;\n  text-align: center; }\n", ""]);
+exports.push([module.i, ".centro {\n  width: 50%;\n  margin: auto;\n  text-align: center; }\n\n.Google {\n  background-color: #e0482f !important; }\n", ""]);
 
 // exports
 
@@ -1251,7 +1302,7 @@ var LoginComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/Pages/noticias/noticias.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\r\n    <nb-layout-header fixed>\r\n            <app-header style=\"width:100%\"></app-header>\r\n    </nb-layout-header>\r\n    <br>\r\n    <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\r\n        <nb-sidebar-header>\r\n        </nb-sidebar-header>\r\n        <app-menu></app-menu>\r\n    </nb-sidebar>\r\n    <nb-layout-column class=\"WrapItUp Mostrar\"> \r\n        <nb-card class=\"Card99\" (click)=\"onClick(item)\" *ngFor=\"let item of DataBase1\">\r\n            <nb-card-header>{{item.nome}}</nb-card-header>\r\n            <nb-card-body>\r\n                <div style=\" text-align: center; \">\r\n                    <img width=\"50%\" height=\"50%\" src=\"{{item.url_imagem}}\">\r\n                </div>\r\n            </nb-card-body>\r\n            <nb-card-footer></nb-card-footer>\r\n        </nb-card>\r\n    </nb-layout-column>\r\n</nb-layout>"
+module.exports = "<nb-layout>\r\n    <nb-layout-header fixed>\r\n            <app-header style=\"width:100%\"></app-header>\r\n    </nb-layout-header>\r\n    <br>\r\n    <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\r\n        <nb-sidebar-header>\r\n        </nb-sidebar-header>\r\n        <app-menu></app-menu>\r\n    </nb-sidebar>\r\n    <nb-layout-column class=\"WrapItUp Mostrar\"> \r\n\r\n           <nb-card class=\"Card99\" (click)=\"onClick(item)\" *ngFor=\"let item of DataBase1\">\r\n                <nb-card-header>{{item.nome}}</nb-card-header>\r\n                <nb-card-body>\r\n                    <div style=\" text-align: center; \">\r\n                        <img width=\"50%\" height=\"50%\" src=\"{{item.url_imagem}}\">\r\n                    </div>\r\n                </nb-card-body>\r\n                <nb-card-footer></nb-card-footer>\r\n            </nb-card>\r\n\r\n      \r\n    </nb-layout-column> \r\n</nb-layout>\r\n"
 
 /***/ }),
 
@@ -1263,7 +1314,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".Mostrar {\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n\n@-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n\n@keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n\n.Card99 {\n  margin: 10px;\n  width: 20%;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1; }\n\n.Card99 nb-card-header {\n    text-align: center; }\n\n.WrapItUp {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap; }\n", ""]);
+exports.push([module.i, ".Mostrar {\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n\n@-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n\n@keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n\n.Card99 {\n  margin: 10px;\n  width: 20%;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1; }\n\n.Card99 nb-card-header {\n    text-align: center; }\n\n.WrapItUp {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap; }\n\n.okay {\n  text-align: center !important; }\n\n::ng-deep .swal2-popup .swal2-title {\n  color: white !important; }\n\n::ng-deep .swal2-popup #swal2-content {\n  color: white !important; }\n", ""]);
 
 // exports
 
@@ -1282,7 +1333,8 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Service_CacheSrv_cache_service_service__ = __webpack_require__("../../../../../src/app/Service/CacheSrv/cache-service.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__ = __webpack_require__("../../../../angularfire2/database/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ngx_modialog_plugins_bootstrap__ = __webpack_require__("../../../../ngx-modialog/plugins/bootstrap/bundle/ngx-modialog-bootstrap.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sweetalert2__ = __webpack_require__("../../../../sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_sweetalert2__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1298,14 +1350,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var NoticiasComponent = /** @class */ (function () {
-    function NoticiasComponent(router, cacheSrv, db, modal) {
+    function NoticiasComponent(router, cacheSrv, db) {
         this.router = router;
         this.cacheSrv = cacheSrv;
         this.db = db;
-        this.modal = modal;
+        this.display = false;
         this.getNoticias1();
-        this.Omega = 'blue';
-        //this.Set_envio = db.list('https://argeon-337.firebaseio.com/Fichas de Usuario');
+        //this.Omega = 'blue'
     }
     NoticiasComponent.prototype.ngOnInit = function () {
     };
@@ -1317,19 +1368,26 @@ var NoticiasComponent = /** @class */ (function () {
             this.classe = 'Mostrar';
         }
     };
+    NoticiasComponent.prototype.showDialog = function () {
+        this.display = true;
+    };
     NoticiasComponent.prototype.getNoticias1 = function () {
         var _this = this;
-        this.db.list('Grimorio').valueChanges()
+        this.db.list('MenuNotas').valueChanges()
             .subscribe(function (s) {
             _this.DataBase1 = s;
         });
     };
     NoticiasComponent.prototype.onClick = function (dado) {
         console.log(dado);
-        this.modal.alert()
-            .title(dado.nome)
-            .body("\n      <div>\n      {{dado.nome}}\n     <img width=\"100vh\" height=\"200vh\" src=\"" + dado.url_imagem + "\">\n      </div>\n    ")
-            .open();
+        __WEBPACK_IMPORTED_MODULE_4_sweetalert2___default()({
+            title: dado.nome,
+            text: dado.observacao,
+            imageUrl: dado.url_imagem,
+            imageWidth: 200,
+            imageHeight: 200,
+            background: '#3d3780'
+        });
     };
     NoticiasComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -1337,7 +1395,7 @@ var NoticiasComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/Pages/noticias/noticias.component.html"),
             styles: [__webpack_require__("../../../../../src/app/Pages/noticias/noticias.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_1__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_4_ngx_modialog_plugins_bootstrap__["b" /* Modal */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_1__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */]])
     ], NoticiasComponent);
     return NoticiasComponent;
 }());
@@ -1397,11 +1455,14 @@ var CacheServiceService = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginSrvService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase_app__ = __webpack_require__("../../../../firebase/app/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CacheSrv_cache_service_service__ = __webpack_require__("../../../../../src/app/Service/CacheSrv/cache-service.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app__ = __webpack_require__("../../../../firebase/app/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase_app__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2__ = __webpack_require__("../../../../sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_sweetalert2__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1415,11 +1476,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var LoginSrvService = /** @class */ (function () {
-    function LoginSrvService(afAuth, router) {
+    function LoginSrvService(afAuth, router, cacheSrv, zone) {
         var _this = this;
         this.afAuth = afAuth;
         this.router = router;
+        this.cacheSrv = cacheSrv;
+        this.zone = zone;
         this.Logado = false;
         this.usuario = { NameDisplay: null, ImageDisplay: null, Token: null };
         this.afAuth.authState.subscribe(function (auth) {
@@ -1431,25 +1497,18 @@ var LoginSrvService = /** @class */ (function () {
     }
     LoginSrvService.prototype.Login = function () {
         var _this = this;
-        this.afAuth.auth.signInWithPopup(new __WEBPACK_IMPORTED_MODULE_2_firebase_app__["auth"].GoogleAuthProvider());
-        console.log(this.afAuth);
-        this.Logado = true;
-        this.afAuth.authState.subscribe(function (user) {
-            if (user)
-                _this.usuario.NameDisplay = user.displayName,
-                    _this.usuario.ImageDisplay = user.photoURL,
-                    _this.usuario.Token = user.uid;
-            console.log(user);
-        });
-        setTimeout(function () {
+        this.ativar(true);
+        this.afAuth.auth.signInWithPopup(new __WEBPACK_IMPORTED_MODULE_3_firebase_app__["auth"].GoogleAuthProvider()).then(function (res) {
+            _this.usuario.NameDisplay = res.user.displayName,
+                _this.usuario.ImageDisplay = res.user.photoURL,
+                _this.usuario.Token = res.user.uid;
+            console.log(res.additionalUserInfo.profile.gender);
+            _this.genero = res.additionalUserInfo.profile.gender;
             sessionStorage.setItem('SetNameuser', _this.usuario.NameDisplay);
             sessionStorage.setItem('SetImageuser', _this.usuario.ImageDisplay);
             sessionStorage.setItem('SetTokenuser', _this.usuario.Token);
-            if (_this.usuario.Token != null) {
-                _this.router.navigateByUrl('/fichas');
-            }
-            console.log(sessionStorage.setItem('SetImageuser', _this.usuario.ImageDisplay));
-        }, 6000);
+            _this.ativar(false);
+        });
     };
     LoginSrvService.prototype.Logout = function () {
         this.afAuth.auth.signOut();
@@ -1457,6 +1516,49 @@ var LoginSrvService = /** @class */ (function () {
         sessionStorage.removeItem('SetNameuser');
         sessionStorage.removeItem('SetImageuser');
         sessionStorage.removeItem('SetTokenuser');
+        // this.router.navigateByUrl('/home')
+    };
+    LoginSrvService.prototype.ativar = function (show) {
+        if (show) {
+            __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default()({
+                position: 'center',
+                title: 'Entrando...',
+                showConfirmButton: false,
+                showCancelButton: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false
+            });
+            __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.showLoading();
+        }
+        else {
+            __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.hideLoading();
+            __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.close();
+            this.redirect();
+        }
+    };
+    LoginSrvService.prototype.redirect = function () {
+        var _this = this;
+        var text;
+        if (this.genero == 'male') {
+            text = 'Bem vindo ' + this.usuario.NameDisplay;
+        }
+        else {
+            text = 'Bem vinda ' + this.usuario.NameDisplay;
+        }
+        __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default()({
+            position: 'center',
+            type: 'success',
+            title: text,
+            showConfirmButton: true,
+            onClose: function () {
+                _this.zone.run(function () {
+                    _this.router.navigateByUrl('/home');
+                });
+            }
+        });
+    };
+    LoginSrvService.prototype.goToHome = function () {
+        this.router.navigate(['/home']);
     };
     LoginSrvService.prototype.SetNameuser = function (Usuario) {
         console.log('Sendo ativado com sucesso', Usuario);
@@ -1473,8 +1575,8 @@ var LoginSrvService = /** @class */ (function () {
         return this.Avatar;
     };
     LoginSrvService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]])
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_0__CacheSrv_cache_service_service__["a" /* CacheServiceService */], __WEBPACK_IMPORTED_MODULE_1__angular_core__["NgZone"]])
     ], LoginSrvService);
     return LoginSrvService;
 }());
@@ -1483,7 +1585,14 @@ var LoginSrvService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/app.component.css":
+/***/ "../../../../../src/app/app.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<router-outlet></router-outlet>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -1498,13 +1607,6 @@ exports.push([module.i, "", ""]);
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/app.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -1529,7 +1631,7 @@ var AppComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-root',
             template: __webpack_require__("../../../../../src/app/app.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/app.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
         })
     ], AppComponent);
     return AppComponent;
@@ -1547,32 +1649,32 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/esm5/animations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nebular_theme__ = __webpack_require__("../../../../@nebular/theme/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_smart_table__ = __webpack_require__("../../../../ng2-smart-table/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__node_modules_ng2_dragula_ng2_dragula__ = __webpack_require__("../../../../ng2-dragula/ng2-dragula.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__node_modules_ng2_dragula_ng2_dragula___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__node_modules_ng2_dragula_ng2_dragula__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angularfire2__ = __webpack_require__("../../../../angularfire2/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angularfire2_database__ = __webpack_require__("../../../../angularfire2/database/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_ngx_modialog__ = __webpack_require__("../../../../ngx-modialog/bundle/ngx-modialog.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_ngx_modialog_plugins_bootstrap__ = __webpack_require__("../../../../ngx-modialog/plugins/bootstrap/bundle/ngx-modialog-bootstrap.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_angular2_toaster__ = __webpack_require__("../../../../angular2-toaster/angular2-toaster.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__Pages_home_home_component__ = __webpack_require__("../../../../../src/app/Pages/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__Pages_noticias_noticias_component__ = __webpack_require__("../../../../../src/app/Pages/noticias/noticias.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__Pages_login_login_component__ = __webpack_require__("../../../../../src/app/Pages/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__Pages_ficha_ficha_component__ = __webpack_require__("../../../../../src/app/Pages/ficha/ficha.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__Pages_criar_fichas_criar_fichas_component__ = __webpack_require__("../../../../../src/app/Pages/criar-fichas/criar-fichas.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__Components_grid_grid_component__ = __webpack_require__("../../../../../src/app/Components/grid/grid.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__Components_header_header_component__ = __webpack_require__("../../../../../src/app/Components/header/header.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__Components_buttons_buttons_component__ = __webpack_require__("../../../../../src/app/Components/buttons/buttons.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__Components_menu_menu_component__ = __webpack_require__("../../../../../src/app/Components/menu/menu.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__Service_CacheSrv_cache_service_service__ = __webpack_require__("../../../../../src/app/Service/CacheSrv/cache-service.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__Service_LoginSrv_login_srv_service__ = __webpack_require__("../../../../../src/app/Service/LoginSrv/login-srv.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__nebular_theme__ = __webpack_require__("../../../../@nebular/theme/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_smart_table__ = __webpack_require__("../../../../ng2-smart-table/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_ng2_dragula_ng2_dragula__ = __webpack_require__("../../../../ng2-dragula/ng2-dragula.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_ng2_dragula_ng2_dragula___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__node_modules_ng2_dragula_ng2_dragula__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2__ = __webpack_require__("../../../../angularfire2/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angularfire2_database__ = __webpack_require__("../../../../angularfire2/database/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angular2_toaster__ = __webpack_require__("../../../../angular2-toaster/angular2-toaster.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__Pages_home_home_component__ = __webpack_require__("../../../../../src/app/Pages/home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__Pages_noticias_noticias_component__ = __webpack_require__("../../../../../src/app/Pages/noticias/noticias.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__Pages_login_login_component__ = __webpack_require__("../../../../../src/app/Pages/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__Pages_ficha_ficha_component__ = __webpack_require__("../../../../../src/app/Pages/ficha/ficha.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__Pages_editar_fichas_editar_fichas_component__ = __webpack_require__("../../../../../src/app/Pages/editar-fichas/editar-fichas.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__Pages_criar_fichas_criar_fichas_component__ = __webpack_require__("../../../../../src/app/Pages/criar-fichas/criar-fichas.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__Components_grid_grid_component__ = __webpack_require__("../../../../../src/app/Components/grid/grid.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__Components_header_header_component__ = __webpack_require__("../../../../../src/app/Components/header/header.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__Components_buttons_buttons_component__ = __webpack_require__("../../../../../src/app/Components/buttons/buttons.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__Components_menu_menu_component__ = __webpack_require__("../../../../../src/app/Components/menu/menu.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__Service_CacheSrv_cache_service_service__ = __webpack_require__("../../../../../src/app/Service/CacheSrv/cache-service.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__Service_LoginSrv_login_srv_service__ = __webpack_require__("../../../../../src/app/Service/LoginSrv/login-srv.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__app_routing_module__ = __webpack_require__("../../../../../src/app/app.routing.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__agm_core__ = __webpack_require__("../../../../@agm/core/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1584,11 +1686,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 //Nebular
 
 
 
+//PrimeNG
 //AngularFire
 
 
@@ -1599,10 +1701,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 //Modals
 
 
-
-
-Object(__WEBPACK_IMPORTED_MODULE_15_ngx_modialog_plugins_bootstrap__["c" /* bootstrap4Mode */])();
 //Paginas
+
 
 
 
@@ -1616,95 +1716,124 @@ Object(__WEBPACK_IMPORTED_MODULE_15_ngx_modialog_plugins_bootstrap__["c" /* boot
 //Serviços
 
 
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_13__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__app_component__["a" /* AppComponent */],
                 //Paginas
-                __WEBPACK_IMPORTED_MODULE_17__Pages_home_home_component__["a" /* HomeComponent */],
-                __WEBPACK_IMPORTED_MODULE_18__Pages_noticias_noticias_component__["a" /* NoticiasComponent */],
-                __WEBPACK_IMPORTED_MODULE_19__Pages_login_login_component__["a" /* LoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__Pages_ficha_ficha_component__["a" /* FichaComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__Pages_home_home_component__["a" /* HomeComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__Pages_noticias_noticias_component__["a" /* NoticiasComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__Pages_login_login_component__["a" /* LoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__Pages_ficha_ficha_component__["a" /* FichaComponent */],
                 //Componentes
-                __WEBPACK_IMPORTED_MODULE_22__Components_grid_grid_component__["a" /* GridComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__Components_header_header_component__["a" /* HeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__Components_buttons_buttons_component__["a" /* ButtonsComponent */],
-                __WEBPACK_IMPORTED_MODULE_25__Components_menu_menu_component__["a" /* MenuComponent */],
-                __WEBPACK_IMPORTED_MODULE_21__Pages_criar_fichas_criar_fichas_component__["a" /* CriarFichasComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__Components_grid_grid_component__["a" /* GridComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__Components_header_header_component__["a" /* HeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__Components_buttons_buttons_component__["a" /* ButtonsComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__Components_menu_menu_component__["a" /* MenuComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__Pages_criar_fichas_criar_fichas_component__["a" /* CriarFichasComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__Pages_editar_fichas_editar_fichas_component__["a" /* EditarFichasComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_animations__["b" /* NoopAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_10_angularfire2_firestore__["a" /* AngularFirestoreModule */],
-                __WEBPACK_IMPORTED_MODULE_9_angularfire2_database__["b" /* AngularFireDatabaseModule */],
-                __WEBPACK_IMPORTED_MODULE_8_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_12__environments_environment__["a" /* environment */].firebase),
-                __WEBPACK_IMPORTED_MODULE_7__node_modules_ng2_dragula_ng2_dragula__["DragulaModule"],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["a" /* NbActionsModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["b" /* NbCardModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["d" /* NbLayoutModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["e" /* NbMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_16_angular2_toaster__["c" /* ToasterModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["f" /* NbRouteTabsetModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["g" /* NbSearchModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["h" /* NbSidebarModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["j" /* NbTabsetModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["k" /* NbThemeModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["m" /* NbUserModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["c" /* NbCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_6_ng2_smart_table__["a" /* Ng2SmartTableModule */],
-                __WEBPACK_IMPORTED_MODULE_14_ngx_modialog__["e" /* ModalModule */].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_15_ngx_modialog_plugins_bootstrap__["a" /* BootstrapModalModule */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["k" /* NbThemeModule */].forRoot({ name: 'cosmic' }),
-                __WEBPACK_IMPORTED_MODULE_3__angular_router__["d" /* RouterModule */].forRoot([
-                    {
-                        path: 'login', component: __WEBPACK_IMPORTED_MODULE_19__Pages_login_login_component__["a" /* LoginComponent */], data: {
-                            breadcrumbs: true,
-                            text: 'Login'
-                        }
-                    },
-                    {
-                        path: 'home', component: __WEBPACK_IMPORTED_MODULE_17__Pages_home_home_component__["a" /* HomeComponent */], data: {
-                            breadcrumbs: true,
-                            text: 'Home'
-                        }
-                    },
-                    {
-                        path: 'noticias', component: __WEBPACK_IMPORTED_MODULE_18__Pages_noticias_noticias_component__["a" /* NoticiasComponent */], data: {
-                            breadcrumbs: true,
-                            text: 'Noticias'
-                        }
-                    },
-                    {
-                        path: 'fichas', component: __WEBPACK_IMPORTED_MODULE_20__Pages_ficha_ficha_component__["a" /* FichaComponent */], data: {
-                            breadcrumbs: true,
-                            text: 'Fichas'
-                        },
-                    },
-                    {
-                        path: 'criar_ficha', component: __WEBPACK_IMPORTED_MODULE_21__Pages_criar_fichas_criar_fichas_component__["a" /* CriarFichasComponent */], data: {
-                            breadcrumbs: true,
-                            text: 'Criando Fichas'
-                        }
-                    },
-                    { path: '', redirectTo: 'home', pathMatch: 'full' },
-                ]),
+                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_9_angularfire2_firestore__["a" /* AngularFirestoreModule */],
+                __WEBPACK_IMPORTED_MODULE_8_angularfire2_database__["b" /* AngularFireDatabaseModule */],
+                __WEBPACK_IMPORTED_MODULE_7_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_11__environments_environment__["a" /* environment */].firebase),
+                __WEBPACK_IMPORTED_MODULE_6__node_modules_ng2_dragula_ng2_dragula__["DragulaModule"],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["a" /* NbActionsModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["b" /* NbCardModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["d" /* NbLayoutModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["e" /* NbMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_13_angular2_toaster__["c" /* ToasterModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["f" /* NbRouteTabsetModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["g" /* NbSearchModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["h" /* NbSidebarModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["j" /* NbTabsetModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["k" /* NbThemeModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["m" /* NbUserModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["c" /* NbCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_26__app_routing_module__["a" /* AppRoutingModule */],
+                __WEBPACK_IMPORTED_MODULE_5_ng2_smart_table__["a" /* Ng2SmartTableModule */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["k" /* NbThemeModule */].forRoot({ name: 'cosmic' }),
+                __WEBPACK_IMPORTED_MODULE_27__agm_core__["a" /* AgmCoreModule */].forRoot({
+                    apiKey: 'AIzaSyD-PhVKAW9B9GJ1Zqb2ReV9ARAftvhziE4'
+                })
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_5__nebular_theme__["i" /* NbSidebarService */],
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["h" /* NbSidebarModule */].forRoot().providers,
-                __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["e" /* NbMenuModule */].forRoot().providers,
-                __WEBPACK_IMPORTED_MODULE_26__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */],
-                __WEBPACK_IMPORTED_MODULE_27__Service_LoginSrv_login_srv_service__["a" /* LoginSrvService */],
-                __WEBPACK_IMPORTED_MODULE_16_angular2_toaster__["d" /* ToasterService */],
-                __WEBPACK_IMPORTED_MODULE_11_angularfire2_auth__["a" /* AngularFireAuth */]],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_13__app_component__["a" /* AppComponent */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_4__nebular_theme__["i" /* NbSidebarService */],
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["h" /* NbSidebarModule */].forRoot().providers,
+                __WEBPACK_IMPORTED_MODULE_4__nebular_theme__["e" /* NbMenuModule */].forRoot().providers,
+                __WEBPACK_IMPORTED_MODULE_24__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */],
+                __WEBPACK_IMPORTED_MODULE_25__Service_LoginSrv_login_srv_service__["a" /* LoginSrvService */],
+                __WEBPACK_IMPORTED_MODULE_13_angular2_toaster__["d" /* ToasterService */],
+                __WEBPACK_IMPORTED_MODULE_10_angularfire2_auth__["a" /* AngularFireAuth */]],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_12__app_component__["a" /* AppComponent */]],
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.routing.module.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutingModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Pages_home_home_component__ = __webpack_require__("../../../../../src/app/Pages/home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Pages_noticias_noticias_component__ = __webpack_require__("../../../../../src/app/Pages/noticias/noticias.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Pages_login_login_component__ = __webpack_require__("../../../../../src/app/Pages/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Pages_ficha_ficha_component__ = __webpack_require__("../../../../../src/app/Pages/ficha/ficha.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Pages_editar_fichas_editar_fichas_component__ = __webpack_require__("../../../../../src/app/Pages/editar-fichas/editar-fichas.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Pages_criar_fichas_criar_fichas_component__ = __webpack_require__("../../../../../src/app/Pages/criar-fichas/criar-fichas.component.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+// Pages
+
+
+
+
+
+
+var AppRoutes = [
+    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_4__Pages_login_login_component__["a" /* LoginComponent */] },
+    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_2__Pages_home_home_component__["a" /* HomeComponent */] },
+    { path: 'noticias', component: __WEBPACK_IMPORTED_MODULE_3__Pages_noticias_noticias_component__["a" /* NoticiasComponent */] },
+    { path: 'fichas', component: __WEBPACK_IMPORTED_MODULE_5__Pages_ficha_ficha_component__["a" /* FichaComponent */] },
+    { path: 'criar_ficha', component: __WEBPACK_IMPORTED_MODULE_7__Pages_criar_fichas_criar_fichas_component__["a" /* CriarFichasComponent */] },
+    { path: 'editar_ficha', component: __WEBPACK_IMPORTED_MODULE_6__Pages_editar_fichas_editar_fichas_component__["a" /* EditarFichasComponent */] },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+];
+var AppRoutingModule = /** @class */ (function () {
+    function AppRoutingModule() {
+    }
+    AppRoutingModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* RouterModule */].forRoot(AppRoutes, { enableTracing: false })
+            ],
+            exports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_router__["d" /* RouterModule */]
+            ]
+        })
+    ], AppRoutingModule);
+    return AppRoutingModule;
 }());
 
 
@@ -1723,12 +1852,12 @@ var AppModule = /** @class */ (function () {
 var environment = {
     production: false,
     firebase: {
-        apiKey: "AIzaSyDu9y3kh_aAahRtg-VEpTo7Dwf7GePl9wY",
-        authDomain: "argeon-337.firebaseapp.com",
-        databaseURL: "https://argeon-337.firebaseio.com",
-        projectId: "argeon-337",
-        storageBucket: "argeon-337.appspot.com",
-        messagingSenderId: "330505559945"
+        apiKey: "AIzaSyD-PhVKAW9B9GJ1Zqb2ReV9ARAftvhziE4",
+        authDomain: "argeondatabase.firebaseapp.com",
+        databaseURL: "https://argeondatabase.firebaseio.com",
+        projectId: "argeondatabase",
+        storageBucket: "argeondatabase.appspot.com",
+        messagingSenderId: "420999560331"
     }
 };
 
