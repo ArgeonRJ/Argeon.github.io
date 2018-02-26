@@ -610,14 +610,14 @@ var MenuComponent = /** @class */ (function () {
 /***/ "./src/app/Pages/clans/clans.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <br>\n  <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\">\n    <nb-sidebar-header>\n    </nb-sidebar-header>\n    <app-menu></app-menu>\n  </nb-sidebar>\n\n  <nb-layout-column>\n    <div class=\"angrytext\">\n      <nb-card class=\"\">\n        <nb-card-header style=\"text-align: center\">\n          <h1>Ainda em construção</h1>\n        </nb-card-header>\n        <nb-card-body>\n          <div style=\" text-align: start; \"></div>\n        </nb-card-body>\n        <nb-card-footer></nb-card-footer>\n      </nb-card>\n    </div>\n  </nb-layout-column>"
+module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n          <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <br>\n  <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\n      <nb-sidebar-header>\n      </nb-sidebar-header>\n      <app-menu></app-menu>\n  </nb-sidebar>\n  <nb-layout-column class=\"WrapItUp Mostrar\">\n         <nb-card class=\"Card99\" (click)=\"onClick(item)\" *ngFor=\"let item of Magia\">\n              <nb-card-header>{{item.nome}}</nb-card-header>\n              <nb-card-body>\n                  <div style=\" text-align: center; \">\n                      <img width=\"50%\" height=\"50%\" src=\"{{item.url_imagem}}\">\n                  </div>\n              </nb-card-body>\n              <nb-card-footer></nb-card-footer>\n          </nb-card>      \n  </nb-layout-column> \n</nb-layout>"
 
 /***/ }),
 
 /***/ "./src/app/Pages/clans/clans.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".angrytext {\n  font-size: 70px;\n  font-weight: bold;\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 3s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n\n@-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n\n@keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n"
+module.exports = ".Mostrar {\n  font-size: 70px;\n  font-weight: bold;\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 3s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n\n@-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n\n@keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n\n.Card99 {\n  margin: 10px;\n  width: 20%;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1; }\n\n.Card99 nb-card-header {\n    text-align: center; }\n\n.WrapItUp {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap; }\n\n.okay {\n  text-align: center !important; }\n\n::ng-deep .swal2-popup .swal2-title {\n  color: white !important; }\n\n::ng-deep .swal2-popup #swal2-content {\n  color: white !important; }\n"
 
 /***/ }),
 
@@ -627,22 +627,55 @@ module.exports = ".angrytext {\n  font-size: 70px;\n  font-weight: bold;\n  -web
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ClansComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__("./node_modules/angularfire2/database/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Service_CacheSrv_cache_service_service__ = __webpack_require__("./src/app/Service/CacheSrv/cache-service.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__("./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
 
 var ClansComponent = /** @class */ (function () {
-    function ClansComponent() {
+    function ClansComponent(db, cacheSrv) {
+        this.db = db;
+        this.cacheSrv = cacheSrv;
+        this.getClans();
     }
+    ClansComponent.prototype.getClans = function () {
+        var _this = this;
+        this.db.list('Clans').valueChanges()
+            .subscribe(function (s) {
+            console.log(s);
+            _this.Magia = s;
+            // this.execute = false;
+        });
+    };
+    ClansComponent.prototype.onClick = function (dados) {
+        __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()({
+            title: dados.nome,
+            text: dados.observacao,
+            imageUrl: dados.url_imagem,
+            imageWidth: 200,
+            imageHeight: 200,
+            background: '#3d3780'
+        });
+    };
     ClansComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-clans',
             template: __webpack_require__("./src/app/Pages/clans/clans.component.html"),
             styles: [__webpack_require__("./src/app/Pages/clans/clans.component.scss")]
-        })
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_2__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */]])
     ], ClansComponent);
     return ClansComponent;
 }());
@@ -1435,14 +1468,14 @@ var LoginComponent = /** @class */ (function () {
 /***/ "./src/app/Pages/magias/magias.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\n    <nb-layout-header fixed>\n      <app-header style=\"width:100%\"></app-header>\n    </nb-layout-header>\n    <br>\n    <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\">\n      <nb-sidebar-header>\n      </nb-sidebar-header>\n      <app-menu></app-menu>\n    </nb-sidebar>\n  \n    <nb-layout-column>\n      <div class=\"angrytext\">\n        <nb-card class=\"\">\n          <nb-card-header style=\"text-align: center\">\n            <h1>Ainda em construção</h1>\n          </nb-card-header>\n          <nb-card-body>\n            <div style=\" text-align: start; \"></div>\n          </nb-card-body>\n          <nb-card-footer></nb-card-footer>\n        </nb-card>\n      </div>\n    </nb-layout-column>"
+module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n          <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <br>\n  <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\n      <nb-sidebar-header>\n      </nb-sidebar-header>\n      <app-menu></app-menu>\n  </nb-sidebar>\n  <nb-layout-column class=\"WrapItUp Mostrar\">\n         <nb-card class=\"Card99\" (click)=\"onClick(item)\" *ngFor=\"let item of Magia\">\n              <nb-card-header>{{item.nome}}</nb-card-header>\n              <nb-card-body>\n                  <div style=\" text-align: center; \">\n                      <img width=\"50%\" height=\"50%\" src=\"{{item.url_imagem}}\">\n                  </div>\n              </nb-card-body>\n              <nb-card-footer></nb-card-footer>\n          </nb-card>      \n  </nb-layout-column> \n</nb-layout>"
 
 /***/ }),
 
 /***/ "./src/app/Pages/magias/magias.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".angrytext {\n  font-size: 70px;\n  font-weight: bold;\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 3s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n\n@-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n\n@keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n"
+module.exports = ".Mostrar {\n  font-size: 70px;\n  font-weight: bold;\n  -webkit-animation-name: bounce-in;\n  -webkit-animation-duration: 3s;\n  -webkit-animation-timing-function: ease;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: bounce-in;\n  -webkit-animation-duration: 2s;\n          animation-duration: 2s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 1;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n\n@-webkit-keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n    transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n    transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n    transform: scale(0.9); } }\n\n@keyframes bounce-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  50% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  51% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  70% {\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9); } }\n\n.Card99 {\n  margin: 10px;\n  width: 20%;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1; }\n\n.Card99 nb-card-header {\n    text-align: center; }\n\n.WrapItUp {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap; }\n\n.okay {\n  text-align: center !important; }\n\n::ng-deep .swal2-popup .swal2-title {\n  color: white !important; }\n\n::ng-deep .swal2-popup #swal2-content {\n  color: white !important; }\n"
 
 /***/ }),
 
@@ -1452,22 +1485,55 @@ module.exports = ".angrytext {\n  font-size: 70px;\n  font-weight: bold;\n  -web
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MagiasComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_database__ = __webpack_require__("./node_modules/angularfire2/database/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Service_CacheSrv_cache_service_service__ = __webpack_require__("./src/app/Service/CacheSrv/cache-service.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__("./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
 
 var MagiasComponent = /** @class */ (function () {
-    function MagiasComponent() {
+    function MagiasComponent(db, cacheSrv) {
+        this.db = db;
+        this.cacheSrv = cacheSrv;
+        this.getGrimorio();
     }
+    MagiasComponent.prototype.getGrimorio = function () {
+        var _this = this;
+        this.db.list('Grimorio').valueChanges()
+            .subscribe(function (s) {
+            console.log(s);
+            _this.Magia = s;
+            // this.execute = false;
+        });
+    };
+    MagiasComponent.prototype.onClick = function (dados) {
+        __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()({
+            title: dados.nome,
+            text: dados.observacao,
+            imageUrl: dados.url_imagem,
+            imageWidth: 200,
+            imageHeight: 200,
+            background: '#3d3780'
+        });
+    };
     MagiasComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-magias',
             template: __webpack_require__("./src/app/Pages/magias/magias.component.html"),
             styles: [__webpack_require__("./src/app/Pages/magias/magias.component.scss")]
-        })
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_2__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */]])
     ], MagiasComponent);
     return MagiasComponent;
 }());
@@ -1525,17 +1591,6 @@ var NoticiasComponent = /** @class */ (function () {
         //this.Omega = 'blue'
     }
     NoticiasComponent.prototype.ngOnInit = function () {
-    };
-    NoticiasComponent.prototype.ativar = function () {
-        if (this.classe != null) {
-            this.classe = null;
-        }
-        else {
-            this.classe = 'Mostrar';
-        }
-    };
-    NoticiasComponent.prototype.showDialog = function () {
-        this.display = true;
     };
     NoticiasComponent.prototype.getNoticias1 = function () {
         var _this = this;
