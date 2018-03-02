@@ -359,14 +359,14 @@ var GridComponent = /** @class */ (function () {
 /***/ "./src/app/Components/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-container\">\n    <a (click)=\"toggleSidebar()\" href=\"#\" class=\"navigation\"><i class=\"nb-menu\"></i></a>\n  <div style=\" width: 20%;\">\n    <nb-menu [items]=\"menu\"></nb-menu>\n  </div>\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"Logado\">\n    <nb-action>\n\n    </nb-action>\n    <nb-action>\n      <nb-user [name]=\"UsernameDisplay\" [picture]=\"AvatarDisplay\"></nb-user>\n    </nb-action>\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin()\" >\n        <i class=\"fa fa-2x fa-chevron-down {{Rotate}} \"></i>Sair</button>\n    </nb-action>\n  </nb-actions>\n\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"!Logado\">\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin()\">\n        <i class=\"fa fa-2x fa-chevron-up {{Rotate}} \"></i>Login</button>\n    </nb-action>\n  </nb-actions>\n\n</div>"
+module.exports = "<div class=\"header-container\">\n    <a (click)=\"toggleSidebar()\" href=\"#\" class=\"navigation\"><i class=\"nb-menu\"></i></a>\n  <div style=\" width: 20%;\">\n    <nb-menu [items]=\"menu\"></nb-menu>\n  </div>\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"Logado\">\n    <nb-action>\n\n    </nb-action>\n    <nb-action>\n      <nb-user [name]=\"UsernameDisplay\" [picture]=\"AvatarDisplay\"></nb-user>\n    </nb-action>\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin(false)\" >\n        <i class=\"fa fa-2x fa-chevron-down {{Rotate}} \"></i>Sair</button>\n    </nb-action>\n  </nb-actions>\n\n  <nb-actions size=\"medium\" class=\"header-container\" style=\" justify-content: flex-end;\" *ngIf=\"!Logado\">\n    <nb-action>\n      <button class=\"btn btn-primary logout\" (click)=\"GoToLogin(true)\">\n        <i class=\"fa fa-2x fa-chevron-up {{Rotate}} \"></i>Login</button>\n    </nb-action>\n  </nb-actions>\n\n</div>"
 
 /***/ }),
 
 /***/ "./src/app/Components/header/header.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".header-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 100%; }\n  .header-container .navigation {\n    padding-right: nb-theme(padding);\n    font-size: 2.5rem;\n    text-decoration: none; }\n  .header-container .navigation i {\n      display: block; }\n  .header-container .logo {\n    padding: 0 nb-theme(padding);\n    font-size: 1.75rem;\n    font-weight: nb-theme(font-weight-bolder);\n    border-left: 1px solid nb-theme(separator);\n    white-space: nowrap; }\n  .header-container .logo span {\n      font-weight: nb-theme(font-weight-normal); }\n  .header-container .logo:hover {\n    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue; }\n  .logout {\n  background-color: transparent !important; }\n  .logout:hover {\n  background-color: #a659ff !important; }\n  .navigation {\n  border-right-style: solid;\n  border-color: #ffffffa3;\n  border-width: 1px; }\n  .fa-chevron-down:hover {\n  -webkit-animation-name: RotateToLogin;\n  -webkit-animation-duration: .3s;\n  -webkit-animation-timing-function: linear;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 10;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: RotateToLogin;\n  animation-duration: .3s;\n  animation-timing-function: linear;\n  animation-delay: 0s;\n  animation-iteration-count: 10;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n  .RotateToLogin {\n  -webkit-animation-name: RotateToLogin;\n  -webkit-animation-duration: .3s;\n  -webkit-animation-timing-function: linear;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 10;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: RotateToLogin;\n  animation-duration: .3s;\n  animation-timing-function: linear;\n  animation-delay: 0s;\n  animation-iteration-count: 10;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n  @-webkit-keyframes RotateToLogin {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n  @keyframes RotateToLogin {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n"
+module.exports = ".header-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 100%; }\n  .header-container .navigation {\n    padding-right: nb-theme(padding);\n    font-size: 2.5rem;\n    text-decoration: none; }\n  .header-container .navigation i {\n      display: block; }\n  .header-container .logo {\n    padding: 0 nb-theme(padding);\n    font-size: 1.75rem;\n    font-weight: nb-theme(font-weight-bolder);\n    border-left: 1px solid nb-theme(separator);\n    white-space: nowrap; }\n  .header-container .logo span {\n      font-weight: nb-theme(font-weight-normal); }\n  .header-container .logo:hover {\n    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue; }\n  .logout {\n  background-color: transparent !important; }\n  .logout:hover {\n  background-color: #a659ff !important; }\n  .navigation {\n  border-right-style: solid;\n  border-color: #ffffffa3;\n  border-width: 1px; }\n  .fa-chevron-down:hover {\n  -webkit-animation-name: RotateToLogin;\n  -webkit-animation-duration: .3s;\n  -webkit-animation-timing-function: linear;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 10;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: RotateToLogin;\n  animation-duration: .3s;\n  animation-timing-function: linear;\n  animation-delay: 0s;\n  -webkit-animation-iteration-count: 100;\n          animation-iteration-count: 100;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n  .fa-chevron-up:hover {\n  -webkit-animation-name: RotateToLogin;\n  -webkit-animation-duration: .3s;\n  -webkit-animation-timing-function: linear;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: infinite;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: RotateToLogin;\n  animation-duration: .3s;\n  animation-timing-function: linear;\n  animation-delay: 0s;\n  -webkit-animation-iteration-count: 100;\n          animation-iteration-count: 100;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n  .RotateToLogin {\n  -webkit-animation-name: RotateToLogin;\n  -webkit-animation-duration: .3s;\n  -webkit-animation-timing-function: linear;\n  -webkit-animation-delay: 0s;\n  -webkit-animation-iteration-count: 20;\n  -webkit-animation-direction: normal;\n  -webkit-animation-fill-mode: none;\n  animation-name: RotateToLogin;\n  animation-duration: .3s;\n  animation-timing-function: linear;\n  animation-delay: 0s;\n  -webkit-animation-iteration-count: 100;\n          animation-iteration-count: 100;\n  animation-direction: normal;\n  animation-fill-mode: none; }\n  @-webkit-keyframes RotateToLogin {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n  @keyframes RotateToLogin {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n"
 
 /***/ }),
 
@@ -381,6 +381,8 @@ module.exports = ".header-container {\n  display: -webkit-box;\n  display: -ms-f
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Service_CacheSrv_cache_service_service__ = __webpack_require__("./src/app/Service/CacheSrv/cache-service.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__ = __webpack_require__("./node_modules/angularfire2/auth/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nebular_theme__ = __webpack_require__("./node_modules/@nebular/theme/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sweetalert2__ = __webpack_require__("./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_sweetalert2__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -396,13 +398,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(router, afAuth, LoginSrv, cacheSrv, sidebarSrv, menuSrv) {
+    function HeaderComponent(router, afAuth, LoginSrv, cacheSrv, sidebarSrv, zone, menuSrv) {
         this.router = router;
         this.afAuth = afAuth;
         this.LoginSrv = LoginSrv;
         this.cacheSrv = cacheSrv;
         this.sidebarSrv = sidebarSrv;
+        this.zone = zone;
         this.menuSrv = menuSrv;
         this.Logado = false;
         this.menu = [
@@ -425,20 +430,53 @@ var HeaderComponent = /** @class */ (function () {
         }
     }
     HeaderComponent.prototype.ngOnInit = function () { };
-    HeaderComponent.prototype.GoToLogin = function () {
-        var _this = this;
+    HeaderComponent.prototype.GoToLogin = function (Logado) {
+        console.log(Logado);
+        var buttonText;
+        var buttonColor;
         this.Rotate = 'RotateToLogin';
-        setTimeout(function () {
-            _this.router.navigateByUrl('/login');
-            _this.Show = false;
-        }, 3000);
+        if (Logado == true) {
+            buttonText = '<i class="socicon-google"></i> Login com Google';
+            buttonColor = '#e0482f';
+            this.Toast(buttonText, Logado, buttonColor);
+        }
+        else if (Logado == false) {
+            buttonColor = '#6f5cb5';
+            buttonText = 'Sair do meu Perfil';
+            this.Toast(buttonText, Logado, buttonColor);
+        }
+        this.Rotate = 'RotateToLogin';
+    };
+    HeaderComponent.prototype.Toast = function (botao, Logado, cor) {
+        var _this = this;
+        __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default()({
+            position: 'top-end',
+            // type: 'info',
+            showCancelButton: true,
+            //toast: true,
+            background: '#3d3780',
+            confirmButtonText: botao,
+            confirmButtonColor: cor,
+            cancelButtonText: '<i class="fa fa-2x fa-close"></i>'
+        }).then(function (result) {
+            if (result.value) {
+                if (Logado == true) {
+                    _this.LoginSrv.Login();
+                }
+                if (Logado == false) {
+                    _this.LoginSrv.Logout();
+                }
+            }
+            else if (
+            // Read more about handling dismissals
+            result.dismiss === __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default.a.DismissReason.cancel) {
+                _this.Rotate = null;
+            }
+        });
     };
     HeaderComponent.prototype.toggleSidebar = function () {
         this.sidebarSrv.toggle(true, 'menu-sidebar');
         return false;
-    };
-    HeaderComponent.prototype.goToHome = function () {
-        //this.router.navigateByUrl('/home')
     };
     HeaderComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
@@ -451,6 +489,7 @@ var HeaderComponent = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_0__Service_LoginSrv_login_srv_service__["a" /* LoginSrvService */],
             __WEBPACK_IMPORTED_MODULE_3__Service_CacheSrv_cache_service_service__["a" /* CacheServiceService */],
             __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["j" /* NbSidebarService */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_core__["NgZone"],
             __WEBPACK_IMPORTED_MODULE_5__nebular_theme__["f" /* NbMenuService */]])
     ], HeaderComponent);
     return HeaderComponent;
@@ -687,14 +726,14 @@ var ClansComponent = /** @class */ (function () {
 /***/ "./src/app/Pages/criar-fichas/criar-fichas.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n\n  <nb-layout-column>\n    <nb-card class=\"Card99\">\n      <nb-card-header style=\"text-align:center\"><h3>Criar Ficha</h3></nb-card-header>\n      <nb-card-body>\n        <form>\n          <div class=\"row\">\n            <div class=\"form-group col-md-6\">\n              <label>*Seu nome</label>\n              <input type=\"text\" [(ngModel)]=\"FichasData.NomePlayer\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\">\n            </div>\n            <div class=\"form-group col-md-6\">\n              <label>*Nome do seu Personagem</label>\n              <input [(ngModel)]=\"FichasData.NomeChar\" [ngModelOptions]=\"{standalone: true}\" type=\"text\" class=\"form-control\">\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"form-group col-md-4\">\n              <label>Alcunha</label>\n              <input type=\"text\" [(ngModel)]=\"FichasData.Alcunha\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\">\n            </div>\n            <div class=\"form-group col-md-4\">\n              <label>*Sua idade</label>\n              <input [(ngModel)]=\"FichasData.IdadePlayer\" [ngModelOptions]=\"{standalone: true}\" type=\"number\" class=\"form-control\">\n            </div>\n            <div class=\"form-group col-md-4\">\n              <label>Idade do seu personagem</label>\n              <input [(ngModel)]=\"FichasData.IdadeChar\" [ngModelOptions]=\"{standalone: true}\" type=\"number\" class=\"form-control\">\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"form-group col-md-6\">\n              <div class=\"form-group dropdownArrow newSelect\">\n                <label for=\"DropDownApps\">Reinos</label>\n                <select [(ngModel)]=\"FichasData.Reino\" class=\"form-control\" [ngModelOptions]=\"{standalone: true}\">\n                  <option [value]=\"item.nome\" *ngFor=\"let item of  Dropdowns.Reinos\">{{item.nome}}</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"form-group col-md-6\">\n              <div class=\"form-group dropdownArrow newSelect\">\n                <label for=\"DropDownApps\">Clãs</label>\n                <select [(ngModel)]=\"FichasData.Clan\" class=\"form-control\" [ngModelOptions]=\"{standalone: true}\">\n                  <option [value]=\"item.nome\" *ngFor=\"let item of  Dropdowns.Clans\">{{item.nome}}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n        </form>\n      </nb-card-body>\n      <nb-card-footer>\n      </nb-card-footer>\n    </nb-card>\n    <div class=\"wrapper_Magico\">\n      <div class='row' style=\"text-align:center\">\n        <div class=\"col-md-6\">\n          <h1>Magias do Grimorio</h1>\n        </div>\n        <div class=\"col-md-6\">\n          <h1>Suas Magias</h1>\n        </div>\n      </div>\n      <div class='row '>\n        <div class='container col-md-6 coluna teste' [dragula]='\"bag-task1\"' [dragulaModel]='MagiaGrimorio' [dragulaOptions]=\"options\">\n          <nb-card class=\"Card99\" *ngFor=\"let text of MagiaGrimorio\">\n            <nb-card-header [innerHtml]='text'></nb-card-header>\n          </nb-card>\n        </div>\n        <div class='container col-md-6 coluna2 teste' [dragula]='\"bag-task1\"' [dragulaModel]='MagiaPlayer' [dragulaOptions]=\"options2\">\n          <nb-card class=\"Card99\" *ngFor=\"let text of MagiaPlayer\">\n            <nb-card-header [innerHtml]='text'></nb-card-header>\n          </nb-card>\n        </div>\n      </div>\n    </div>\n  </nb-layout-column>\n  <nb-layout-footer fixed>\n    <div class=\"row\">\n      <div class=\"example-container\" *ngFor=\"let hb of settings\">\n        <div class=\"container-btn\" style=\"padding-right: 7px !important;\">\n          <button class=\"btn {{ hb.class }} btn-demo\" (click)=\"salvar(hb)\">{{ hb.NameButton }}</button>\n        </div>\n      </div>\n    </div>\n  </nb-layout-footer>\n</nb-layout>"
+module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n\n  <nb-layout-column>\n    <nb-card class=\"\">\n      <nb-card-header style=\"text-align:center\"><h3>Criar Ficha</h3></nb-card-header>\n      <nb-card-body>\n        <form>\n          <div class=\"row\">\n            <div class=\"form-group col-md-6\">\n              <label>*Seu nome</label>\n              <input type=\"text\" [(ngModel)]=\"FichasData.NomePlayer\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\">\n            </div>\n            <div class=\"form-group col-md-6\">\n              <label>*Nome do seu Personagem</label>\n              <input [(ngModel)]=\"FichasData.NomeChar\" [ngModelOptions]=\"{standalone: true}\" type=\"text\" class=\"form-control\">\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"form-group col-md-4\">\n              <label>Alcunha</label>\n              <input type=\"text\" [(ngModel)]=\"FichasData.Alcunha\" [ngModelOptions]=\"{standalone: true}\" class=\"form-control\">\n            </div>\n            <div class=\"form-group col-md-4\">\n              <label>*Sua idade</label>\n              <input [(ngModel)]=\"FichasData.IdadePlayer\" [ngModelOptions]=\"{standalone: true}\" type=\"number\" class=\"form-control\">\n            </div>\n            <div class=\"form-group col-md-4\">\n              <label>Idade do seu personagem</label>\n              <input [(ngModel)]=\"FichasData.IdadeChar\" [ngModelOptions]=\"{standalone: true}\" type=\"number\" class=\"form-control\">\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"form-group col-md-6\">\n              <div class=\"form-group dropdownArrow newSelect\">\n                <label for=\"DropDownApps\">Reinos</label>\n                <select [(ngModel)]=\"FichasData.Reino\" class=\"form-control\" [ngModelOptions]=\"{standalone: true}\">\n                  <option [value]=\"item.nome\" *ngFor=\"let item of  Dropdowns.Reinos\">{{item.nome}}</option>\n                </select>\n              </div>\n            </div>\n            <div class=\"form-group col-md-6\">\n              <div class=\"form-group dropdownArrow newSelect\">\n                <label for=\"DropDownApps\">Clãs</label>\n                <select [(ngModel)]=\"FichasData.Clan\" class=\"form-control\" [ngModelOptions]=\"{standalone: true}\">\n                  <option [value]=\"item.nome\" *ngFor=\"let item of  Dropdowns.Clans\">{{item.nome}}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n        </form>\n      </nb-card-body>\n      <nb-card-footer>\n      </nb-card-footer>\n    </nb-card>\n    <div class=\"wrapper_Magico\">\n      <div class='row' style=\"text-align:center\">\n        <div class=\"col-md-6\">\n          <h1>Magias do Grimorio</h1>\n          <h3>Seus Pontos: {{PontosSaldo}}</h3>\n        </div>\n        <div class=\"col-md-6\">\n          <h1>Suas Magias</h1>\n          <h3>Pontos gastos: {{PontosGastos}}</h3>\n        </div>\n      </div>\n      <div class='row '>\n        <div class='container col-md-6 coluna teste' [dragula]='\"bag-task1\"' [dragulaModel]='MagiaGrimorio' [dragulaOptions]=\"options\">\n          <nb-card class=\"Card99\" *ngFor=\"let text of MagiaGrimorio\">\n            <nb-card-header [innerHtml]='text.nome'></nb-card-header>\n          </nb-card>\n        </div>\n        <div class='container col-md-6 coluna2 teste' [dragula]='\"bag-task1\"' [dragulaModel]='MagiaPlayer' [dragulaOptions]=\"options2\">\n          <nb-card class=\"Card99\" *ngFor=\"let text of MagiaPlayer\">\n            <nb-card-header [innerHtml]='text.nome'></nb-card-header>\n          </nb-card>\n        </div>\n      </div>\n    </div>\n  </nb-layout-column>\n  <nb-layout-footer fixed>\n    <div class=\"row\">\n      <div class=\"example-container\" *ngFor=\"let hb of settings\">\n        <div class=\"container-btn\" style=\"padding-right: 7px !important;\">\n          <button class=\"btn {{ hb.class }} btn-demo\" (click)=\"salvar(hb)\">{{ hb.NameButton }}</button>\n        </div>\n      </div>\n    </div>\n  </nb-layout-footer>\n</nb-layout>"
 
 /***/ }),
 
 /***/ "./src/app/Pages/criar-fichas/criar-fichas.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".wrapper_Magico {\n  font-size: 1rem;\n  line-height: 1.25;\n  background: #3d3780;\n  color: #d1d1ff;\n  border-radius: .5rem;\n  border-color: #3d3780;\n  -webkit-box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n          box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n  font-weight: 400; }\n\n.coluna {\n  -webkit-box-shadow: 6px 0px 25px 0px #000000 !important;\n          box-shadow: 6px 0px 25px 0px #000000 !important; }\n\n.coluna2 {\n  -webkit-box-shadow: -6px 0px 25px 0px #000000 !important;\n          box-shadow: -6px 0px 25px 0px #000000 !important; }\n\n.teste {\n  overflow-y: scroll;\n  height: 40vh; }\n"
+module.exports = ".wrapper_Magico {\n  font-size: 1rem;\n  line-height: 1.25;\n  background: #3d3780;\n  color: #d1d1ff;\n  border-radius: .5rem;\n  border-color: #3d3780;\n  -webkit-box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n          box-shadow: 0 8px 20px 0 rgba(40, 37, 89, 0.6);\n  font-weight: 400; }\n\n.coluna {\n  -webkit-box-shadow: 6px 0px 25px 0px #000000 !important;\n          box-shadow: 6px 0px 25px 0px #000000 !important; }\n\n.coluna2 {\n  -webkit-box-shadow: -6px 0px 25px 0px #000000 !important;\n          box-shadow: -6px 0px 25px 0px #000000 !important; }\n\n.teste {\n  overflow-y: scroll;\n  height: 40vh; }\n\n.Card99 {\n  margin-bottom: 1px !important;\n  border-style: solid !important;\n  border-bottom: 0px solid transparent !important;\n  border-top: 0px solid transparent !important;\n  -webkit-box-shadow: inset 0px -9px 10px 0 rgba(0, 0, 0, 0.749) !important;\n  box-shadow: inset 0px -9px 10px 0 rgba(0, 0, 0, 0.749) !important; }\n"
 
 /***/ }),
 
@@ -761,6 +800,21 @@ var CriarFichasComponent = /** @class */ (function () {
             _this.themeName = theme.name;
             _this.Buttons(theme.variables);
         });
+        this.dragulaService.drop.subscribe(function (value) {
+            console.log(value);
+            _this.CustoMagico();
+            _this.PontosGastos = _this.CustoMagico();
+            if (_this.FichasData.IdadePlayer < 20) {
+                _this.PontosSaldo = 20;
+            }
+            else {
+                _this.PontosSaldo = _this.FichasData.IdadePlayer;
+            }
+            if (_this.PontosGastos > _this.PontosSaldo) {
+            }
+            else {
+            }
+        });
     }
     CriarFichasComponent.prototype.ngOnInit = function () {
     };
@@ -770,8 +824,11 @@ var CriarFichasComponent = /** @class */ (function () {
             .subscribe(function (s) {
             _this.Dropdowns.Grimorio = s;
             for (var i = 0; i < _this.Dropdowns.Grimorio.length; i++) {
-                var magias = _this.Dropdowns.Grimorio[i].nome;
+                var magias = _this.Dropdowns.Grimorio[i];
+                delete magias.url_imagem;
+                console.log(magias);
                 _this.MagiaGrimorio.push(magias);
+                //console.log(this.MagiaGrimorio)
             }
         });
         this.db.list('Reinos').valueChanges()
@@ -812,11 +869,11 @@ var CriarFichasComponent = /** @class */ (function () {
     };
     CriarFichasComponent.prototype.showToast = function (position, iconType, body, time, cor) {
         __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default()({
-            position: 'top-end',
+            position: position,
             html: body,
             showConfirmButton: false,
             background: cor,
-            // #678D65
+            width: 500,
             type: iconType,
             toast: true,
             timer: time,
@@ -826,18 +883,38 @@ var CriarFichasComponent = /** @class */ (function () {
         //var retorno: boolean = false;
         this.toasterText = '';
         if (this.FichasData.NomePlayer == null || this.FichasData.NomePlayer == '') {
-            this.toasterText = this.toasterText + "<div style=\"\n                          padding:10px;\n                          color:#fff;\n                          \n                          font-family: 'Ubuntu', serif;\n                          text-align: left;\n                          \">\n                          <span style=\"font-weight: bold;\">Erro!</span>Voc\u00EA n\u00E3o informou seu nome</div>";
+            this.toasterText = this.toasterText + "<div style=\"\n                          padding:10px;\n                          color:#fff;\n                          font-family: 'Ubuntu', serif;\n                          text-align: left;\n                          \">\n                          <span style=\"font-weight: bold;\">Erro!</span>Voc\u00EA n\u00E3o informou seu nome</div>";
         }
         if (this.FichasData.NomeChar == null || this.FichasData.NomeChar == '') {
-            this.toasterText = this.toasterText + "<div style=\"\n                         padding:10px;\n                         color:#fff;\n                         \n                         font-family: 'Ubuntu', serif;\n                         text-align: left;\n                         >\n                         <span style=\"font-weight: bold;\">Erro!</span>Voc\u00EA n\u00E3o informou o nome do seu personagem</div>";
+            this.toasterText = this.toasterText + "<div style=\"\n                         padding:10px;\n                         color:#fff;\n                         font-family: 'Ubuntu', serif;\n                         text-align: left;\n                         >\n                         <span style=\"font-weight: bold;\">Erro!</span>Voc\u00EA n\u00E3o informou o nome do seu personagem</div>";
         }
         if (this.FichasData.IdadePlayer == null || this.FichasData.IdadePlayer == '') {
-            this.toasterText = this.toasterText + "<div style=\"\n                         padding:10px;\n                         color:#fff;\n                         \n                         font-family: 'Ubuntu', serif;\n                         text-align: left;\n                         >\n                         <span style=\"font-weight: bold;\">Erro!</span>Voc\u00EA n\u00E3o informou sua idade</div>";
+            this.toasterText = this.toasterText + "<div style=\"\n                         padding:10px;\n                         color:#fff;\n                         font-family: 'Ubuntu', serif;\n                         text-align: left;\n                         >\n                         <span style=\"font-weight: bold;\">Erro!</span>Voc\u00EA n\u00E3o informou sua idade</div>";
+        }
+        var pontosFinais = this.FichasData.IdadePlayer - this.PontosGastos;
+        if (pontosFinais < 0) {
+            console.log(pontosFinais);
+            this.toasterText = this.toasterText + "<div style=\"\n                         padding:10px;\n                         color:#fff;\n                         font-family: 'Ubuntu', serif;\n                         text-align: left;\n                         >\n                         <span style=\"font-weight: bold;\">Erro!</span>Suas magias excedem o numero de pontos que voc\u00EA possui</div>";
         }
         return (this.toasterText == '');
     };
+    CriarFichasComponent.prototype.PlayerPoints = function () {
+        this.FichasData.IdadePlayer - this.PontosGastos;
+    };
+    CriarFichasComponent.prototype.CustoMagico = function () {
+        var pontos = 0, average;
+        for (var i = 0; i < this.MagiaPlayer.length; i++) {
+            pontos += this.MagiaPlayer[i].pontos;
+        }
+        average = pontos;
+        console.log(average);
+        return average;
+    };
+    ;
     CriarFichasComponent.prototype.salvar = function (item) {
         var _this = this;
+        console.clear();
+        console.log('OA!', this.PontosGastos);
         if (this.FichasData.Reino == null) {
             this.FichasData.Reino = 'Vento Verde';
         }
@@ -849,7 +926,7 @@ var CriarFichasComponent = /** @class */ (function () {
         }
         else {
             if (!this.ValidarRegistro()) {
-                this.showToast('top', 'error', this.toasterText, 2000, '#B83740');
+                this.showToast('top', 'error', this.toasterText, 3000, '#B83740');
             }
             else {
                 this.Envio.set({
@@ -865,12 +942,13 @@ var CriarFichasComponent = /** @class */ (function () {
                     userId: this.userId,
                     Magias: this.MagiaPlayer,
                     MagiasPendentes: this.MagiaGrimorio
+                }).then(function (s) {
+                    var successMsg = '<h5>Ficha criada com sucesso</h5>';
+                    _this.showToast('top-end', 'success', successMsg, 2000, '#678D65');
+                    setTimeout(function () {
+                        _this.router.navigateByUrl('/fichas');
+                    }, 2100);
                 });
-                var successMsg = '<h5>Ficha criada com sucesso</h5>';
-                this.showToast('top-end', 'success', successMsg, 2000, '#678D65');
-                setTimeout(function () {
-                    _this.router.navigateByUrl('/fichas');
-                }, 2100);
             }
         }
     };
@@ -1223,14 +1301,13 @@ var FichaComponent = /** @class */ (function () {
     FichaComponent.prototype.showToast = function () {
         __WEBPACK_IMPORTED_MODULE_6_sweetalert2___default()({
             position: 'top',
-            html: '<h3 style="color:#fff;">Você precisa estar logado para criar uma ficha</h3>',
+            html: '<h3 style="color:#fff;">Você precisa estar logado para criar/editar uma ficha</h3>',
             showConfirmButton: false,
             background: '#BD362F',
-            //toast: true,
-            imageUrl: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMS4yNjkgNTExLjI2OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTExLjI2OSA1MTEuMjY5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGNsYXNzPSIiPjxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMjIzNjg5IDAgMCAwLjIyMzY4OSAxOTguNDUyIDE5OC40NTIpIj48cGF0aCBzdHlsZT0iZmlsbDojMDAwMDAwIiBkPSJNMTQwLjM2Nyw0NjUuMDY3QzExNi45LDQzOC40LDkzLjQzNCw0MTAuNjY3LDc4LjUsMzc3LjZjLTE0LjkzMy0zNS4yLTE5LjItNzUuNzMzLTExLjczMy0xMTQuMTMzICBzMjQuNTMzLTc0LjY2Nyw0OS4wNjctMTA1LjZjLTIuMTMzLDI2LjY2Nyw3LjQ2Nyw1NC40LDI1LjYsNzQuNjY3Yy0xMC42NjctNTEuMiw2LjQtMTA2LjY2Nyw0MC41MzMtMTQ3LjJTMjYzLjAzNCwxOC4xMzMsMzEyLjEsMCAgYy0yNC41MzMsMjUuNi0yNy43MzMsNjYuMTMzLTE4LjEzMywxMDAuMjY3YzkuNiwzNC4xMzMsMjkuODY3LDY0LDQ4LDk0LjkzM2MxOC4xMzMsMzAuOTMzLDM1LjIsNjIuOTMzLDM2LjI2Nyw5OC4xMzMgIGM5LjYtMTguMTMzLDIwLjI2Ny0zNi4yNjcsMjYuNjY3LTU2LjUzM2M2LjQtMjAuMjY3LDkuNi00MS42LDQuMjY3LTYxLjg2N2MxOS4yLDIzLjQ2NywyOS44NjcsNDYuOTMzLDM1LjIsNzYuOCAgYzUuMzMzLDI5Ljg2Nyw0LjI2Nyw2MC44LDEuMDY3LDkwLjY2N2MtNC4yNjcsMzMuMDY3LTEyLjgsNjcuMi0zMC45MzMsOTQuOTMzYy0yMS4zMzMsMzMuMDY3LTU1LjQ2Nyw1Ni41MzMtOTIuOCw2OS4zMzMgIEMyNTUuNTY3LDUxOC40LDE5MC41LDUwOC44LDE0MC4zNjcsNDY1LjA2N3oiIGRhdGEtb3JpZ2luYWw9IiNGMzcwNUEiIGNsYXNzPSIiIGRhdGEtb2xkX2NvbG9yPSIjMDEwMTAxIj48L3BhdGg+PHBhdGggc3R5bGU9ImZpbGw6I0ZERkJGQiIgZD0iTTIyMS40MzQsNTA0LjUzM0MzMDguOSw1MzguNjY3LDM5NS4zLDQzNS4yLDM0Ny4zLDM1NS4yYzAtMS4wNjctMS4wNjctMS4wNjctMS4wNjctMi4xMzMgIGM0LjI2Nyw0My43MzMtNi40LDc1LjczMy0yNi42NjcsOTMuODY3YzEwLjY2Ny0yNS42LDMuMi01NS40NjctOS42LTgxLjA2N2MtMTIuOC0yNC41MzMtMzAuOTMzLTQ2LjkzMy00NC44LTcwLjQgIGMtMTMuODY3LTI0LjUzMy0yNC41MzMtNTIuMjY3LTE4LjEzMy04MGMtMjUuNiwxOS4yLTQzLjczMyw0OC01MS4yLDc4LjkzM2MtNy40NjcsMzAuOTMzLTMuMiw2NS4wNjcsMTAuNjY3LDkzLjg2NyAgYy0xNi0xMS43MzMtMjcuNzMzLTMwLjkzMy0yOC44LTUxLjJjLTE3LjA2NywyMC4yNjctMjcuNzMzLDQ2LjkzMy0yNi42NjcsNzMuNkMxNTEuMDM0LDQ1Mi4yNjcsMTg0LjEsNDg5LjYsMjIxLjQzNCw1MDQuNTMzeiIgZGF0YS1vcmlnaW5hbD0iI0ZGRDE1QyIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBkYXRhLW9sZF9jb2xvcj0iI0Y4RjVGNSI+PC9wYXRoPjwvZz4gPC9zdmc+",
+            toast: true,
             type: 'error',
             width: 1000,
-            timer: 200000
+            timer: 2000
         });
     };
     FichaComponent.prototype.criarFichas = function (item) {
@@ -1248,7 +1325,6 @@ var FichaComponent = /** @class */ (function () {
                 console.log('Naahhh, ainda não');
             }
         }, 500);
-        // this.cacheSrv.checkData(x)
         if (this.userId == null) {
             this.showToast();
         }
@@ -1385,7 +1461,7 @@ var HomeComponent = /** @class */ (function () {
 /***/ "./src/app/Pages/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <nb-layout-column>\n    <nb-card class=\"centro\">\n      <nb-card-header>\n        <h1>Login</h1>\n      </nb-card-header>\n      <nb-card-body>\n        <button class=\"btn btn-primary Google\" (click)=\"login()\">\n          <i class=\"socicon-google\"></i> Login With Google\n        </button>\n        <i class=\"fa fa-chevron-up\"></i>\n        <button class=\"btn btn-default\" (click)=\"logout()\">Logout</button>\n        <button class=\"btn btn-default\" (click)=\"toast()\">asasasasasaasas</button>\n      </nb-card-body>\n    </nb-card>\n  </nb-layout-column>"
+module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n    <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <nb-layout-column>\n    <!-- <nb-card class=\"centro\">\n      <nb-card-header>\n        <h1>Login</h1>\n      </nb-card-header>\n      <nb-card-body>\n        <button class=\"btn btn-primary Google\" (click)=\"login()\">\n          <i class=\"socicon-google\"></i> Login With Google\n        </button>\n        <i class=\"fa fa-chevron-up\"></i>\n        <button class=\"btn btn-default\" (click)=\"logout()\">Logout</button>\n        <button class=\"btn btn-default\" (click)=\"toast()\">asasasasasaasas</button>\n      </nb-card-body>\n    </nb-card> -->\n  </nb-layout-column>"
 
 /***/ }),
 
@@ -1468,7 +1544,7 @@ var LoginComponent = /** @class */ (function () {
 /***/ "./src/app/Pages/magias/magias.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n          <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <br>\n  <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\n      <nb-sidebar-header>\n      </nb-sidebar-header>\n      <app-menu></app-menu>\n  </nb-sidebar>\n  <nb-layout-column class=\"WrapItUp Mostrar\">\n         <nb-card class=\"Card99\" (click)=\"onClick(item)\" *ngFor=\"let item of Magia\">\n              <nb-card-header>{{item.nome}}</nb-card-header>\n              <nb-card-body>\n                  <div style=\" text-align: center; \">\n                      <img width=\"50%\" height=\"50%\" src=\"{{item.url_imagem}}\">\n                  </div>\n              </nb-card-body>\n              <nb-card-footer></nb-card-footer>\n          </nb-card>      \n  </nb-layout-column> \n</nb-layout>"
+module.exports = "<nb-layout>\n  <nb-layout-header fixed>\n          <app-header style=\"width:100%\"></app-header>\n  </nb-layout-header>\n  <br>\n  <nb-sidebar class=\"menu-sidebar\" tag=\"menu-sidebar\" responsive>\n      <nb-sidebar-header>\n      </nb-sidebar-header>\n      <app-menu></app-menu>\n  </nb-sidebar>\n  <nb-layout-column class=\"WrapItUp Mostrar\">\n         <nb-card class=\"Card99\" (click)=\"onClick(item)\" *ngFor=\"let item of Magia\">\n              <nb-card-header>{{item.nome}}</nb-card-header>\n              <nb-card-body class=\"center\" style=\"display:flex; align-items:center\">\n                  <div style=\" text-align: center; \">\n                      <img width=\"50%\" height=\"50%\" src=\"{{item.url_imagem}}\">\n                  </div>\n              </nb-card-body>\n              <nb-card-footer></nb-card-footer>\n          </nb-card>      \n  </nb-layout-column> \n</nb-layout>"
 
 /***/ }),
 
@@ -1520,7 +1596,7 @@ var MagiasComponent = /** @class */ (function () {
     MagiasComponent.prototype.onClick = function (dados) {
         __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()({
             title: dados.nome,
-            text: dados.observacao,
+            text: '<p>' + dados.observacao + '</p>',
             imageUrl: dados.url_imagem,
             imageWidth: 200,
             imageHeight: 200,
@@ -1740,12 +1816,18 @@ var LoginSrvService = /** @class */ (function () {
         }).catch((function (err) { return _this.error; }));
     };
     LoginSrvService.prototype.Logout = function () {
+        var _this = this;
         this.afAuth.auth.signOut();
         this.Logado = false;
         sessionStorage.removeItem('SetNameuser');
         sessionStorage.removeItem('SetImageuser');
         sessionStorage.removeItem('SetTokenuser');
-        this.router.navigateByUrl('/home');
+        setTimeout(function () {
+            _this.router.navigateByUrl('/home');
+        }, 10);
+        this.zone.run(function () {
+            _this.router.navigateByUrl('/login');
+        });
     };
     LoginSrvService.prototype.ativar = function (show) {
         if (show) {
@@ -1780,8 +1862,11 @@ var LoginSrvService = /** @class */ (function () {
             html: '<h1 style="color:#3f34b0">' + text + '</h1>',
             showConfirmButton: true,
             onClose: function () {
-                _this.zone.run(function () {
+                setTimeout(function () {
                     _this.router.navigateByUrl('/home');
+                }, 10);
+                _this.zone.run(function () {
+                    _this.router.navigateByUrl('/login');
                 });
             }
         });
